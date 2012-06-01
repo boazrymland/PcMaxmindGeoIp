@@ -1,4 +1,4 @@
-Yii PcMaxmindGeoIp extension
+# Yii PcMaxmindGeoIp extension
 
 ## General
 
