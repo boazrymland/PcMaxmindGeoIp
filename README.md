@@ -50,6 +50,7 @@ You can use another binary DB file by supplying the following parameter to the c
 ## Usage
 
 - Typically, at some point in your code you'll do:
+- 
 ~~~php
 $ip = Yii::app()->geoip->getRemoteIpAddress();
 $address_information = Yii::app()->geoip->getCityInfoForIp($ip);
@@ -57,6 +58,7 @@ $address_information = Yii::app()->geoip->getCityInfoForIp($ip);
 // in the "Features" section above, with values that fetched from Maxmind or false 
 // if none found.
 ~~~
+
 - A few other auxiliary method are provided to complete the functionality:
   - **getRemoteIpAddress()**: Returns the valid IP address of the current user.
   - **isPubliclyRoutableIpAddress()**: Tells whether the given IP address is a 'public' IP and is routable, meaning not internal network (10.0.0.0/8...) or belonging to some reserved range.
