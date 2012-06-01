@@ -50,8 +50,7 @@ You can use another binary DB file by supplying the following parameter to the c
 ## Usage
 
 - Typically, at some point in your code you'll do:
-~~~
-[php]
+~~~php
 $ip = Yii::app()->geoip->getRemoteIpAddress();
 $address_information = Yii::app()->geoip->getCityInfoForIp($ip);
 // at this stage $address_information is an array with element keys as noted 
