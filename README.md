@@ -36,8 +36,7 @@ This extension provides the Maxmind GeoLite City package to Yii users.
 - Recommended usage as a 'Yii component'. Note that altough loaded as a component, only for Maxmind involving activity the Maxmind client and DB will be used (better for performance reasons). 
 - To setup as a component, add the following code to your main.php config file:
 
-~~~
-[php]
+~~~php
 'components' => array(
 //...
   'geoip' => array(
