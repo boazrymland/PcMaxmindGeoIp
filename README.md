@@ -6,7 +6,7 @@ This extension provides the Maxmind GeoLite City package to Yii users.
 
 ## Features
 
-- Latest Maxmind Geo City Lite is included. No need to install anything else asides from this Yii extension.
+- Latest Maxmind Geo City Lite is included. No need to install anything else aside from this Yii extension.
 - Information retrieved includes the following properties of an IP address (all, some or none - depending on the info found by Maxmind):
   - country_code
   - country_code3
@@ -28,7 +28,7 @@ This extension provides the Maxmind GeoLite City package to Yii users.
 
 ## Requirements
 
-- This extension uses PHP's _Filter_ extension. Your PHP environment should include this extension. If you're using a PHP of version v5.2 or newer than Filters was built into PHP from that version on, so you're safe. To verify, run a simple phpinfo() on your server. 
+- This extension uses PHP's _Filter_ extension. Your PHP environment should include this extension. If you're using a PHP of version v5.2 or newer than Filter was built into PHP from that version on, so you're safe. To verify, run a simple phpinfo() on your server. 
 - Tested on Yii v1.1.10, but should work with older versions.
 
 ## Installation
