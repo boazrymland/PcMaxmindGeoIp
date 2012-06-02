@@ -84,6 +84,10 @@ class PcMaxmindGeoIp extends CApplicationComponent {
 	/**
 	 * Returns the valid IP address of the current user.
 	 * Supports IPv6 addresses (at least, supposed to :-)
+	 * 
+	 * IMPORTANT SECURITY NOTICE: since the http headers used by this function can forged with little effort never trust the answer
+	 * returned by this method for security decisions. Even when used for statistics always remember - INFORMATION RETURNED BY THIS 
+	 * METHOD IS INACCRUTATE AND FORGE-ABLE. **NEVER TRUST IT**. 
 	 *
 	 * @return string
 	 */
