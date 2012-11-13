@@ -105,10 +105,10 @@ class PcMaxmindGeoIp extends CApplicationComponent {
 	/**
 	 * Returns the valid IP address of the current user.
 	 * Supports IPv6 addresses (at least, supposed to :-)
-	 * 
+	 *
 	 * IMPORTANT SECURITY NOTICE: since the http headers used by this function can forged with little effort never trust the answer
-	 * returned by this method for security decisions. Even when used for statistics always remember - INFORMATION RETURNED BY THIS 
-	 * METHOD IS INACCRUTATE AND FORGE-ABLE. **NEVER TRUST IT**. 
+	 * returned by this method for security decisions. Even when used for statistics always remember - INFORMATION RETURNED BY THIS
+	 * METHOD IS INACCRUTATE AND FORGE-ABLE. **NEVER TRUST IT**.
 	 *
 	 * @return string
 	 */
@@ -167,5 +167,61 @@ class PcMaxmindGeoIp extends CApplicationComponent {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * @param int $lat latitude in decimal notation. Allowed values are +90 (north of the equator) to -90 (south of the equator)
+	 * @param int $lon longitude in decimal notation. Allowed values are +180 (east of Greenwich, England) to -180 (west of Greenwich, England)
+	 * @param bool $include_seconds whether the returned result should include 'seconds' or not. Default is false - do not return
+	 *
+	 * @return array resulted address, in the following syntax ('sec' is optional, depending on $include_seconds):
+	 * array(
+	 *  'lat' => array('deg' => numeric_value, 'min' => numeric_value, 'sec' => numeric_value),
+	 *  'lon' => array('deg' => numeric_value, 'min' => numeric_value, 'sec' => numeric_value)
+	 * )
+	 * @throws CException
+	 */
+	public function convertDecimalToSexagesimal($lat, $lon, $include_seconds = false) {
+		// validate values are in permitted limits
+		if (($lat > 90) || ($lat < -90)) {
+			throw new CException("Unsupported latitude value (should be -90 < lat < 90)");
+		}
+		if (($lon > 180) || ($lon < -180)) {
+			throw new CException("Unsupported logitude value (should be -180 < lon < 180)");
+		}
+
+		// now for the conversion
+		$sexagesimal = array();
+
+		// Calculate latitude first:
+		// first, calculate absolute values (we'll add the negative sign later on, if needed to)
+		$deg_lat = floor(abs($lat));
+		$lat_full_decimal_minutes = abs((abs($lat) - $deg_lat) * 60);
+		$min_lat = floor($lat_full_decimal_minutes);
+		$sexagesimal['lat'] = array('deg' => $deg_lat, 'min' => $min_lat);
+
+		// Longitude calculation:
+		$deg_lon = floor(abs($lon));
+		$lon_full_decimal_minutes = abs((abs($lon) - $deg_lon) * 60);
+		$min_lon = floor($lon_full_decimal_minutes);
+		$sexagesimal['lon'] = array('deg' => $deg_lon, 'min' => $min_lon);
+
+		if ($include_seconds) {
+			// calculate seconds as well
+			$sec_lat = floor(($lat_full_decimal_minutes - $min_lat) * 60);
+			$sec_lon = floor(($lon_full_decimal_minutes - $min_lon) * 60);
+			$sexagesimal['lat']['sec'] = $sec_lat;
+			$sexagesimal['lon']['sec'] = $sec_lon;
+		}
+
+		// handle negative values
+		if ($lat < 0) {
+			$sexagesimal['lat']['deg'] = 0 - $sexagesimal['lat']['deg'];
+		}
+		if ($lon < 0) {
+			$sexagesimal['lon']['deg'] = 0 - $sexagesimal['lon']['deg'];
+		}
+
+		return $sexagesimal;
 	}
 }
